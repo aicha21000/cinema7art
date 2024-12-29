@@ -42,13 +42,14 @@ jobs:
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: cinema7art.com
+          server: 147.79.103.97
           username: u816367387.cinema7art.com
           password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
           local-dir: ./dist/
           server-dir: /public_html/
           dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/** 
+          state-name: .sync-state.json
+          log-level: verbose
+          timeout: 60000 
