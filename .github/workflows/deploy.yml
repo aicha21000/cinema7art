@@ -4,15 +4,10 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'client/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./client
 
     steps:
       - uses: actions/checkout@v3
@@ -37,6 +32,6 @@ jobs:
           server: cinema7art.com
           username: u816367387.cinema7art.com
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./client/dist/
+          local-dir: dist/
           server-dir: /public_html/
           dangerous-clean-slate: false 
