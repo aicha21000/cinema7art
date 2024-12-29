@@ -104,7 +104,7 @@ export default function Footer() {
 
                 {/* Copyright */}
                 <div className="text-center mt-8 text-sm text-gray-400">
-                    <p> {currentYear} © 1 جميع الحقوق محفوظة</p>
+                    <p> جميع الحقوق محفوظة © {currentYear}</p>
                 </div>
             </div>
         </footer>
