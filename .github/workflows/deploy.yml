@@ -28,6 +28,9 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Copy .htaccess
+        run: cp public/.htaccess dist/
+
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -35,4 +38,5 @@ jobs:
           username: u816367387.cinema7art.com
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./client/dist/
-          server-dir: /public_html/ 
+          server-dir: /public_html/
+          dangerous-clean-slate: false 
