@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import newsService from '../services/newsService';
+import ShareButtons from '../components/ShareButtons';
 
 function SidebarArticle({ article }) {
     return (
@@ -105,6 +106,13 @@ export default function NewsDetails() {
                                     'إشاعة'}
                         </span>
                     </div>
+
+                    <ShareButtons
+                        url={`https://cinema7art.com/news/${news._id}`}
+                        title={news.title}
+                        description={news.description}
+                        image={news.image}
+                    />
                 </div>
             </article>
 

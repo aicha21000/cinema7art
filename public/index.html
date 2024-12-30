@@ -1,16 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
 <head>
-    <!-- ... autres balises ... -->
-    <script async
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-VOTRE_ID_CLIENT"></script>
-    <script type="text/javascript">
-        window._mNHandle = window._mNHandle || {};
-        window._mNHandle.queue = window._mNHandle.queue || [];
-    </script>
-    <script src="//contextual.media.net/dmedianet.js?cid=VOTRE_ID_MEDIA_NET" async></script>
-    <script>
-        (function (s, u, z, p) {
-            s.src = 'https://propellerads.com/pjs/' + z + '.js?t=' + Math.floor(Date.now() / 3600000);
-            s.async = true; p = u.getElementsByTagName('script')[0]; p.parentNode.insertBefore(s, p);
-        })(document.createElement('script'), document, 'VOTRE_ZONE_ID');
-    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Meta tags Open Graph pour Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cinema7art.com" />
+    <meta property="og:title" content="Cinema7Art - السينما العربية" />
+    <meta property="og:description" content="موقع عربي متخصص في السينما الأمريكية" />
+    <meta property="og:image" content="https://cinema7art.com/logo.png" />
+    <title>Cinema7Art</title>
 </head>
+
+<body>
+    <!-- SDK Facebook -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '919869716781070',
+                xfbml: true,
+                version: 'v21.0'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/ar_AR/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div id="fb-root"></div>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>
