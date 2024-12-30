@@ -1,62 +1,26 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
+<html lang="ar" dir="rtl" prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article# fb: https://ogp.me/ns/fb#">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Balises Open Graph de base -->
+    <!-- Meta tags de base -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cinema7art.com" />
     <meta property="og:title" content="Cinema7Art - السينما العربية" />
     <meta property="og:description" content="موقع عربي متخصص في السينما الأمريكية" />
     <meta property="og:image" content="https://cinema7art.com/logo.png" />
-    <meta property="og:image:secure_url" content="https://cinema7art.com/logo.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:alt" content="Cinema7Art Logo" />
     <meta property="og:site_name" content="سينما أمريكية" />
     <meta property="og:locale" content="ar_AR" />
     <meta property="fb:app_id" content="919869716781070" />
-
-    <!-- Balises Open Graph pour article -->
-    <meta property="article:publisher" content="https://www.facebook.com/cinema7art" />
-    <meta property="article:author" content="Cinema7Art" />
-    <meta property="article:section" content="أخبار السينما" />
-    <meta property="article:published_time" content="" />
-    <meta property="article:modified_time" content="" />
-
-    <!-- Balises Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@cinema7art" />
-    <meta name="twitter:creator" content="@cinema7art" />
 
     <title>Cinema7Art</title>
 </head>
 
 <body>
-    <!-- SDK Facebook -->
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '919869716781070',
-                xfbml: true,
-                version: 'v18.0'
-            });
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://connect.facebook.net/ar_AR/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <div id="fb-root"></div>
-
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
 </body>

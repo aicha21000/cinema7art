@@ -75,6 +75,53 @@ export default function NewsDetails() {
         }
     }, [fullImageUrl]);
 
+    useEffect(() => {
+        if (news) {
+            // S'assurer que l'URL de l'image est absolue
+            const imageUrl = news.image.startsWith('http')
+                ? news.image
+                : `https://cinema7art.com${news.image}`;
+
+            // Créer ou mettre à jour les meta tags
+            const metaTags = [
+                { property: 'og:title', content: news.arabicTitle },
+                { property: 'og:description', content: news.arabicContent.substring(0, 300) + '...' },
+                { property: 'og:url', content: `https://cinema7art.com/news/${news._id}` },
+                { property: 'og:type', content: 'article' },
+                { property: 'og:image', content: imageUrl },
+                { property: 'og:image:width', content: '1200' },
+                { property: 'og:image:height', content: '630' },
+                { property: 'og:site_name', content: 'سينما أمريكية' },
+                { property: 'article:published_time', content: news.date },
+                { property: 'article:author', content: 'Cinema7Art' },
+                { property: 'article:section', content: 'أخبار السينما' }
+            ];
+
+            // Mettre à jour ou créer les meta tags
+            metaTags.forEach(({ property, content }) => {
+                // Supprimer l'ancien meta tag s'il existe
+                const existingMeta = document.querySelector(`meta[property="${property}"]`);
+                if (existingMeta) {
+                    existingMeta.remove();
+                }
+
+                // Créer un nouveau meta tag
+                const meta = document.createElement('meta');
+                meta.setAttribute('property', property);
+                meta.setAttribute('content', content);
+                document.head.appendChild(meta);
+
+                console.log(`Meta tag updated - ${property}:`, content);
+            });
+
+            // Vérifier l'accessibilité de l'image
+            const img = new Image();
+            img.onload = () => console.log('Image accessible:', imageUrl);
+            img.onerror = () => console.error('Image inaccessible:', imageUrl);
+            img.src = imageUrl;
+        }
+    }, [news]);
+
     if (loading) {
         return <div className="flex justify-center items-center h-screen">
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
