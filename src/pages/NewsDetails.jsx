@@ -29,6 +29,7 @@ export default function NewsDetails() {
     const [popularNews, setPopularNews] = useState([]);
     const [latestNews, setLatestNews] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [fullImageUrl, setFullImageUrl] = useState('');
     const { id } = useParams();
 
     useEffect(() => {
@@ -44,6 +45,12 @@ export default function NewsDetails() {
                 setNews(article);
                 setLatestNews(latest.filter(n => n._id !== id));
                 setPopularNews(popular.filter(n => n._id !== id).slice(0, 5));
+
+                // Définir l'URL de l'image
+                const imageUrl = article.image.startsWith('http')
+                    ? article.image
+                    : `https://cinema7art.com${article.image}`;
+                setFullImageUrl(imageUrl);
             } catch (error) {
                 console.error('Error loading news:', error);
             } finally {
@@ -53,6 +60,20 @@ export default function NewsDetails() {
 
         fetchData();
     }, [id]);
+
+    // Vérification de l'image
+    useEffect(() => {
+        if (fullImageUrl) {
+            const img = new Image();
+            img.src = fullImageUrl;
+            img.onload = () => {
+                console.log('Image chargée avec succès');
+            };
+            img.onerror = () => {
+                console.error('Erreur de chargement de l\'image');
+            };
+        }
+    }, [fullImageUrl]);
 
     if (loading) {
         return <div className="flex justify-center items-center h-screen">
@@ -64,10 +85,6 @@ export default function NewsDetails() {
         return <div className="text-center p-4">Article non trouvé</div>;
     }
 
-    const fullImageUrl = news.image.startsWith('http')
-        ? news.image
-        : `https://cinema7art.com${news.image}`;
-
     return (
         <>
             <SEOHead
@@ -76,13 +93,14 @@ export default function NewsDetails() {
                 image={fullImageUrl}
                 url={`/news/${news._id}`}
                 type="article"
+                date={news.date}
             />
 
             <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
                 {/* Article principal */}
                 <article className="lg:w-2/3 rtl">
                     <img
-                        src={news.image}
+                        src={fullImageUrl}
                         alt={news.arabicTitle}
                         className="w-full h-[400px] object-cover rounded-lg mb-6"
                     />
