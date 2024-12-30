@@ -69,88 +69,7 @@ export default function NewsDetails() {
         : `https://cinema7art.com${news.image}`;
 
     return (
-        <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
-            {/* Article principal */}
-            <article className="lg:w-2/3 rtl">
-                <img
-                    src={news.image}
-                    alt={news.arabicTitle}
-                    className="w-full h-[400px] object-cover rounded-lg mb-6"
-                />
-
-                <div className="space-y-4 text-right">
-                    <h1 className="text-3xl font-bold mb-4">{news.arabicTitle}</h1>
-
-                    <div className="flex justify-end gap-4 text-sm text-gray-600">
-                        <span>{new Date(news.date).toLocaleDateString('ar-SA')}</span>
-                        <span>{news.source}</span>
-                    </div>
-
-                    <div className="prose prose-lg max-w-none">
-                        {news.arabicContent.split('\n').map((paragraph, index) => (
-                            <p key={index} className="mb-4 leading-relaxed">
-                                {paragraph}
-                            </p>
-                        ))}
-                    </div>
-
-                    <div className="flex justify-end gap-2 mt-6">
-                        {news.isExclusive && (
-                            <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">
-                                حصري
-                            </span>
-                        )}
-                        <span className={`px-2 py-1 rounded text-sm ${news.reliability === 'reliable'
-                            ? 'bg-green-100 text-green-800'
-                            : news.reliability === 'unconfirmed'
-                                ? 'bg-yellow-100 text-yellow-800'
-                                : 'bg-gray-100 text-gray-800'
-                            }`}>
-                            {news.reliability === 'reliable' ? 'موثوق' :
-                                news.reliability === 'unconfirmed' ? 'غير مؤكد' :
-                                    'إشاعة'}
-                        </span>
-                    </div>
-
-                    <ShareButtons
-                        url={`https://cinema7art.com/news/${news._id}`}
-                        title={news.arabicTitle}
-                        description={news.arabicContent.substring(0, 300) + '...'}
-                        image={fullImageUrl}
-                    />
-                </div>
-            </article>
-
-            {/* Ligne verticale */}
-            <div className="hidden lg:block w-px bg-gray-200 mx-4"></div>
-
-            {/* Barre latérale */}
-            <aside className="lg:w-1/3 rtl">
-                {/* Articles les plus récents */}
-                <div className="mb-8">
-                    <h2 className="text-xl font-bold mb-4 text-right">
-                        أحدث الأخبار
-                    </h2>
-                    <div className="space-y-4">
-                        {latestNews.map(article => (
-                            <SidebarArticle key={article._id} article={article} />
-                        ))}
-                    </div>
-                </div>
-
-                {/* Articles populaires */}
-                <div>
-                    <h2 className="text-xl font-bold mb-4 text-right">
-                        الأكثر قراءة
-                    </h2>
-                    <div className="space-y-4">
-                        {popularNews.map(article => (
-                            <SidebarArticle key={article._id} article={article} />
-                        ))}
-                    </div>
-                </div>
-            </aside>
-
+        <>
             <SEOHead
                 title={news.arabicTitle}
                 description={news.arabicContent.substring(0, 300) + '...'}
@@ -158,6 +77,89 @@ export default function NewsDetails() {
                 url={`/news/${news._id}`}
                 type="article"
             />
-        </div>
+
+            <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
+                {/* Article principal */}
+                <article className="lg:w-2/3 rtl">
+                    <img
+                        src={news.image}
+                        alt={news.arabicTitle}
+                        className="w-full h-[400px] object-cover rounded-lg mb-6"
+                    />
+
+                    <div className="space-y-4 text-right">
+                        <h1 className="text-3xl font-bold mb-4">{news.arabicTitle}</h1>
+
+                        <div className="flex justify-end gap-4 text-sm text-gray-600">
+                            <span>{new Date(news.date).toLocaleDateString('ar-SA')}</span>
+                            <span>{news.source}</span>
+                        </div>
+
+                        <div className="prose prose-lg max-w-none">
+                            {news.arabicContent.split('\n').map((paragraph, index) => (
+                                <p key={index} className="mb-4 leading-relaxed">
+                                    {paragraph}
+                                </p>
+                            ))}
+                        </div>
+
+                        <div className="flex justify-end gap-2 mt-6">
+                            {news.isExclusive && (
+                                <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">
+                                    حصري
+                                </span>
+                            )}
+                            <span className={`px-2 py-1 rounded text-sm ${news.reliability === 'reliable'
+                                ? 'bg-green-100 text-green-800'
+                                : news.reliability === 'unconfirmed'
+                                    ? 'bg-yellow-100 text-yellow-800'
+                                    : 'bg-gray-100 text-gray-800'
+                                }`}>
+                                {news.reliability === 'reliable' ? 'موثوق' :
+                                    news.reliability === 'unconfirmed' ? 'غير مؤكد' :
+                                        'إشاعة'}
+                            </span>
+                        </div>
+
+                        <ShareButtons
+                            url={`https://cinema7art.com/news/${news._id}`}
+                            title={news.arabicTitle}
+                            description={news.arabicContent.substring(0, 300) + '...'}
+                            image={fullImageUrl}
+                        />
+                    </div>
+                </article>
+
+                {/* Ligne verticale */}
+                <div className="hidden lg:block w-px bg-gray-200 mx-4"></div>
+
+                {/* Barre latérale */}
+                <aside className="lg:w-1/3 rtl">
+                    {/* Articles les plus récents */}
+                    <div className="mb-8">
+                        <h2 className="text-xl font-bold mb-4 text-right">
+                            أحدث الأخبار
+                        </h2>
+                        <div className="space-y-4">
+                            {latestNews.map(article => (
+                                <SidebarArticle key={article._id} article={article} />
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Articles populaires */}
+                    <div>
+                        <h2 className="text-xl font-bold mb-4 text-right">
+                            الأكثر قراءة
+                        </h2>
+                        <div className="space-y-4">
+                            {popularNews.map(article => (
+                                <SidebarArticle key={article._id} article={article} />
+                            ))}
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </>
     );
 } 

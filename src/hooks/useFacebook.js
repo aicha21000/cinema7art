@@ -7,43 +7,26 @@ export function useFacebook() {
         }
     }, []);
 
-    const share = (url, title, description, image) => {
-        if (window.FB) {
-            // Utiliser l'API Feed Dialog pour un meilleur contrôle du partage
-            window.FB.ui({
-                method: 'feed',
-                link: url,
-                caption: title,
-                description: description,
-                picture: image,
-                display: 'popup'
-            }, function(response) {
-                if (response && !response.error_message) {
-                    console.log('Partage réussi');
-                }
-            });
-        } else {
-            // Fallback si le SDK FB n'est pas chargé
-            const shareUrl = new URL('https://www.facebook.com/dialog/feed');
-            shareUrl.searchParams.set('app_id', '919869716781070');
-            shareUrl.searchParams.set('link', url);
-            shareUrl.searchParams.set('caption', title);
-            shareUrl.searchParams.set('description', description);
-            shareUrl.searchParams.set('picture', image);
-            shareUrl.searchParams.set('display', 'popup');
-            
-            const windowFeatures = 'width=626,height=436,scrollbars=yes,resizable=yes';
-            const windowName = 'facebook-share-dialog';
-            
-            const left = (window.screen.width - 626) / 2;
-            const top = (window.screen.height - 436) / 2;
-            
-            window.open(
-                shareUrl.toString(),
-                windowName,
-                `${windowFeatures},top=${top},left=${left}`
-            );
-        }
+    const share = (url, title, description) => {
+        // Utiliser l'URL de partage basique qui fonctionne même avec les fonctionnalités désactivées
+        const shareText = `${title}\n${description || ''}`;
+        const shareUrl = new URL('https://www.facebook.com/sharer.php');
+        
+        // Ajouter les paramètres de partage
+        shareUrl.searchParams.set('u', url);
+        shareUrl.searchParams.set('t', shareText);
+        
+        // Ouvrir dans une nouvelle fenêtre centrée
+        const width = 626;
+        const height = 436;
+        const left = (window.screen.width - width) / 2;
+        const top = (window.screen.height - height) / 2;
+        
+        window.open(
+            shareUrl.toString(),
+            'facebook-share-dialog',
+            `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+        );
     };
 
     return { share };
