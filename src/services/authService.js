@@ -1,4 +1,5 @@
-const API_URL = import.meta.env.VITE_API_URL || '';
+const API_URL = "https://cinema7art-back.vercel.app";
+// const API_URL = import.meta.env.VITE_API_URL || '';
 
 class AuthService {
     async login(username, password) {
