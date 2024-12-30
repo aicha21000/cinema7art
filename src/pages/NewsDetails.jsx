@@ -90,7 +90,7 @@ export default function NewsDetails() {
             <SEOHead
                 title={news.arabicTitle}
                 description={news.arabicContent.substring(0, 300) + '...'}
-                image={fullImageUrl}
+                image={news.image}
                 url={`/news/${news._id}`}
                 type="article"
                 date={news.date}
