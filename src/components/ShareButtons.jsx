@@ -11,25 +11,37 @@ export default function ShareButtons({ url, title, description, image }) {
         }
     }, [url]);
 
+    const truncatedDescription = description && description.length > 100
+        ? description.substring(0, 100) + '...'
+        : description;
+
     const shareOnFacebook = (e) => {
         e.preventDefault();
-        share(url, title);
+        share(url, title, truncatedDescription, image);
     };
 
     const shareOnTwitter = (e) => {
         e.preventDefault();
-        const shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
-        window.open(shareUrl, 'twitter-share-dialog', 'width=626,height=436');
+        const shareText = `${title}\n${truncatedDescription || ''}`;
+        const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`;
+        const left = (window.screen.width - 626) / 2;
+        const top = (window.screen.height - 436) / 2;
+        window.open(
+            shareUrl,
+            'twitter-share-dialog',
+            `width=626,height=436,scrollbars=yes,resizable=yes,top=${top},left=${left}`
+        );
     };
 
     const shareOnWhatsapp = (e) => {
         e.preventDefault();
-        const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title} ${url}`)}`;
-        window.open(shareUrl, 'whatsapp-share-dialog', 'width=626,height=436');
+        const shareText = `${title}\n${truncatedDescription || ''}\n${url}`;
+        const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+        window.open(shareUrl, '_blank');
     };
 
     return (
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center" dir="ltr">
             <button
                 onClick={shareOnFacebook}
                 className="bg-[#4267B2] text-white p-2 rounded-full hover:bg-[#365899] transition-colors"
@@ -60,8 +72,8 @@ export default function ShareButtons({ url, title, description, image }) {
                 data-layout="button_count"
                 data-action="like"
                 data-share="false"
-                data-size="small">
-            </div>
+                data-size="small"
+            />
         </div>
     );
 } 

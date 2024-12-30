@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import newsService from '../services/newsService';
 import ShareButtons from '../components/ShareButtons';
+import SEOHead from '../components/SEOHead';
 
 function SidebarArticle({ article }) {
     return (
@@ -63,6 +64,10 @@ export default function NewsDetails() {
         return <div className="text-center p-4">Article non trouvé</div>;
     }
 
+    const fullImageUrl = news.image.startsWith('http')
+        ? news.image
+        : `https://cinema7art.com${news.image}`;
+
     return (
         <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
             {/* Article principal */}
@@ -109,9 +114,9 @@ export default function NewsDetails() {
 
                     <ShareButtons
                         url={`https://cinema7art.com/news/${news._id}`}
-                        title={news.title}
-                        description={news.description}
-                        image={news.image}
+                        title={news.arabicTitle}
+                        description={news.arabicContent.substring(0, 300) + '...'}
+                        image={fullImageUrl}
                     />
                 </div>
             </article>
@@ -145,6 +150,14 @@ export default function NewsDetails() {
                     </div>
                 </div>
             </aside>
+
+            <SEOHead
+                title={news.arabicTitle}
+                description={news.arabicContent.substring(0, 300) + '...'}
+                image={fullImageUrl}
+                url={`/news/${news._id}`}
+                type="article"
+            />
         </div>
     );
 } 
