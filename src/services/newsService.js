@@ -2,7 +2,7 @@ import { fetchJson } from '../utils/api';
 import { NEWS_JSON_PATH } from '../config';
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}/api`;
 
 class NewsService {
     constructor() {
