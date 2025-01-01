@@ -32,7 +32,7 @@ function App() {
                             <Navbar />
                             <main className="container mx-auto px-4 py-8">
                                 <Routes>
-                                    <Route path="/" element={<Home />} />
+                                    <Route path="/home" element={<Home />} />
                                     <Route path="/movies" element={<Movies />} />
                                     <Route path="/movies/:id" element={<MovieDetails />} />
                                     <Route path="/top-movies" element={<TopMovies />} />
