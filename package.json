@@ -1,6 +1,7 @@
 {
   "name": "cinema-arabe-client",
   "private": true,
+  "homepage": "https://aicha21000.github.io/cinema7art",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
