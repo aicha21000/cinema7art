@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar.jsx';
 import Home from './pages/Home.jsx';
 import Movies from './pages/Movies.jsx';
+import Navbar from './components/Navbar.jsx';
 import MovieDetails from './pages/MovieDetails.jsx';
 import TopMovies from './pages/TopMovies.jsx';
 import NewReleases from './pages/NewReleases.jsx';
@@ -61,7 +61,7 @@ function App() {
 
                         <div className="flex-1">
                             <Routes>
-                                <Route path="/home" element={<Home />} />
+                                <Route path="/" element={<Home />} />
                                 <Route path="/movies" element={<Movies />} />
                                 <Route path="/movies/:title" element={<MovieDetails />} />
                                 <Route path="/top-movies" element={<TopMovies />} />
