@@ -3,7 +3,7 @@ class MovieService {
         this.movies = [];
         this.newReleases = [];
         this.initialized = false;
-        this.dataPath = '/output';
+        this.dataPath = '/cinema7art/output';
         this.cache = {
             newReleases: new Map(),
             genres: null,
