@@ -1,9 +1,12 @@
+const API_BASE_URL = `${import.meta.env.VITE_FRONT_URL}`;
+
 class MovieService {
     constructor() {
         this.movies = [];
         this.newReleases = [];
         this.initialized = false;
-        this.dataPath = '/cinema7art/output';
+        this.dataPath = `${API_BASE_URL}/output`;
+        console.log(this.dataPath);
         this.cache = {
             newReleases: new Map(),
             genres: null,

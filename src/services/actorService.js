@@ -1,8 +1,9 @@
+const API_BASE_URL = `${import.meta.env.VITE_FRONT_URL}`;
 class ActorService {
     constructor() {
         this.actors = [];
         this.initialized = false;
-        this.dataPath = '/output';
+        this.dataPath = `${API_BASE_URL}/output`;
     }
 
     async initialize() {
