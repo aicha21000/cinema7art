@@ -96,9 +96,9 @@ export default function NewsDetails() {
                 <title>{news.arabicTitle}</title>
                 <meta property="og:title" content={news.arabicTitle} />
                 <meta property="og:description" content={news.arabicContent.substring(0, 300) + '...'} />
-                <meta property="og:image" content={fullImageUrl} />
-                <meta property="og:url" content={`${news._id}`} />
-                <meta property="og:type" content="article" />
+                <meta property="og:image" content={news.image} />
+                <meta property="og:url" content={`https://cinema7art.com/news/${news._id}`} />
+                <meta property="og:type" content={news.source} />
             </Helmet>
 
             <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
