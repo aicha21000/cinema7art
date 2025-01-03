@@ -4,6 +4,7 @@ import newsService from '../services/newsService';
 import ShareButtons from '../components/ShareButtons';
 import SEOHead from '../components/SEOHead';
 import { MetaTagsManager } from '../utils/MetaTagsManager';
+import { Helmet } from 'react-helmet-async';
 
 function SidebarArticle({ article }) {
     return (
@@ -91,14 +92,14 @@ export default function NewsDetails() {
 
     return (
         <>
-            <SEOHead
-                title={news.arabicTitle}
-                description={news.arabicContent.substring(0, 300) + '...'}
-                image={news.image}
-                url={`/news/${news._id}`}
-                type="article"
-                date={news.date}
-            />
+            <Helmet>
+                <title>{news.arabicTitle}</title>
+                <meta property="og:title" content={news.arabicTitle} />
+                <meta property="og:description" content={news.arabicContent.substring(0, 300) + '...'} />
+                <meta property="og:image" content={fullImageUrl} />
+                <meta property="og:url" content={`${news._id}`} />
+                <meta property="og:type" content="article" />
+            </Helmet>
 
             <div className="max-w-7xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
                 {/* Article principal */}
