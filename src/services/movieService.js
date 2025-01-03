@@ -65,7 +65,7 @@ class MovieService {
 
         try {
             // Charger les films réguliers
-            const moviesResponse = await fetch(`${this.dataPath}/movies.json`);
+            const moviesResponse = await fetch(`../output/movies.json`);
             if (!moviesResponse.ok) throw new Error('Erreur lors du chargement des films');
             this.movies = await moviesResponse.json();
 

@@ -10,7 +10,7 @@ class ActorService {
         if (this.initialized) return;
 
         try {
-            const response = await fetch(`${this.dataPath}/actors.json`);
+            const response = await fetch(`../output/actors.json`);
             if (!response.ok) {
                 throw new Error('Erreur lors du chargement des acteurs');
             }
