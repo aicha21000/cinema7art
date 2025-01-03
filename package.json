@@ -8,7 +8,7 @@
     "predev": "node scripts/setupData.js",
     "dev": "vite",
     "prebuild": "node scripts/setupData.js",
-    "build": "vite build",
+    "build": "vite build --base=/",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "update-data": "node scripts/copyNews.js",
