@@ -5,7 +5,7 @@ class MovieService {
         this.movies = [];
         this.newReleases = [];
         this.initialized = false;
-        this.dataPath = `${API_BASE_URL}/output`;
+        this.dataPath = `../output`;
         console.log(this.dataPath);
         this.cache = {
             newReleases: new Map(),
@@ -65,7 +65,7 @@ class MovieService {
 
         try {
             // Charger les films réguliers
-            const moviesResponse = await fetch(`../output/movies.json`);
+            const moviesResponse = await fetch(`${this.dataPath}/movies.json`);
             if (!moviesResponse.ok) throw new Error('Erreur lors du chargement des films');
             this.movies = await moviesResponse.json();
 
