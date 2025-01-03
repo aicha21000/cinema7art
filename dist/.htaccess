@@ -24,7 +24,7 @@
     RewriteEngine On
     RewriteBase /
     
-    # Si le fichier demandé n'existe pas, redirige vers index.html
+    # Assurez-vous que les fichiers JavaScript ne sont pas redirigés
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-l
