@@ -1,6 +1,7 @@
 import axios from 'axios';
+import config from '../config';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = config.REACT_APP_API_BASE_URL;
 const baseURL = `${API_BASE_URL}/api/news`;
 console.log(baseURL);
 
