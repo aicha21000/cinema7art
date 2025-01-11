@@ -31,20 +31,17 @@ jobs:
         env:
           CI: false
 
-      - name: Show build logs
-        run: cat .next/build-log.txt || echo "No build log found"
-
       - name: Check build output
         run: |
-          if [ ! -d "dist" ]; then
-            echo "Build failed: dist directory not found."
+          if [ ! -d "build" ]; then
+            echo "Build failed: build directory not found."
             exit 1
           fi
 
       - name: Prepare deployment
         run: |
           mkdir -p deploy
-          cp -r dist package.json public deploy/
+          cp -r build package.json public deploy/
           # Optionally, include node_modules if not installing on server
           # cp -r node_modules deploy/
 
