@@ -1,11 +1,14 @@
 import React from "react";
 import moviesData from '../data/movies.json';
+import axios from 'axios';
+
 
 class MovieService {
     constructor() {
         this.movies = [];
         this.initialized = false;
         this.localURL = '/movies.json'; // Chemin relatif à partir du dossier public
+        this.baseURL = `${process.env.NEXT_PUBLIC_API_URL}/movies`; // Assurez-vous que l'URL est correcte
     }
 
     async initialize() {
@@ -13,12 +16,10 @@ class MovieService {
 
         try {
             const response = await fetch(this.localURL);
-            console.log("response", response);
             if (!response.ok) throw new Error('Erreur lors du chargement des films');
             this.movies = await response.json();
             this.initialized = true;
         } catch (error) {
-            console.error('Error loading movies:', error);
             this.movies = [];
             this.initialized = true;
         }
@@ -70,14 +71,21 @@ class MovieService {
         ).slice(0, limit);
     }
 
+
     async searchMovies(query) {
-        await this.initialize();
-        const searchTerm = query.toLowerCase();
-        return this.movies.filter(movie =>
-            movie.englishTitle.toLowerCase().includes(searchTerm) ||
-            movie.arabicTitle.includes(searchTerm)
-        );
+        try {
+            // Filtrer les acteurs en fonction du terme de recherche
+            const filteredMovies = moviesData.filter(movie =>
+                movie.englishTitle.toLowerCase().includes(query.toLowerCase())
+            );
+            console.log('Filtered movies:', filteredMovies);
+            return filteredMovies;
+        } catch (error) {
+            console.error('Error searching actors:', error);
+            throw error;
+        }
     }
+
 
     async getGenres() {
         await this.initialize();
@@ -95,19 +103,7 @@ class MovieService {
             .slice(0, limit);
     }
 
-    async searchMovies1(query) {
-        try {
-            // Filtrer les acteurs en fonction du terme de recherche
-            const filteredMovies = moviesData.filter(movie =>
-                movie.englishTitle.toLowerCase().includes(query.toLowerCase())
-            );
-            console.log('Filtered movies:', filteredMovies);
-            return filteredMovies;
-        } catch (error) {
-            console.error('Error searching movies:', error);
-            throw error;
-        }
-    }
+
 
     async getNewReleases() {
         await this.initialize();
@@ -123,6 +119,20 @@ class MovieService {
         await this.initialize();
         return moviesData.filter(movie => movie.releaseYear === 2025);
     }
+
+    async searchGlobal(query) {
+        try {
+            const response = await moviesData.filter(movie =>
+                movie.englishTitle.toLowerCase().includes(query.toLowerCase()) ||
+                movie.arabicTitle.toLowerCase().includes(query.toLowerCase())
+            );
+            return response; // Assurez-vous que cela renvoie un tableau de films
+        } catch (error) {
+            console.error('Error searching movies:', error);
+            throw error;
+        }
+    }
+
 }
 
 export default new MovieService(); 

@@ -20,6 +20,18 @@ import GuessScene from './components/games/guess-scene';
 import MovieQuiz from './components/games/movie-quiz';
 import MovieQuotes from './components/games/movie-quotes';
 import TriviaChallenge from './components/games/trivia-challenge';
+
+import Dashboard from './pages/admin/dashboard';
+import Login from './pages/admin/login';
+import AdminMovies from './pages/admin/movies';
+import AdminActors from './pages/admin/actors';
+import EditActor from './pages/admin/actors/edit-actor';  
+import addActor from './pages/admin/actors/add-actor';
+import AdminNews from './pages/admin/news';
+import EditNews from './pages/admin/news/edit-news';
+import AddNews from './pages/admin/news/add-news';
+import Search from './pages/Search';
+
 import './index.css';
 
 function App() {
@@ -51,8 +63,16 @@ function App() {
             <Route path="/games/movie-quiz" element={<MovieQuiz />} />
             <Route path="/games/movie-quotes" element={<MovieQuotes />} />
             <Route path="/games/trivia-challenge" element={<TriviaChallenge />} />
-
-          
+            <Route path="/admin/login" element={<Login />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/admin/movies" element={<AdminMovies />} />
+            <Route path="/admin/actors" element={<AdminActors />} />
+            <Route path="/admin/edit-actor/:id" element={<EditActor />} />
+            <Route path="/admin/add-actor" element={<addActor />} />
+            <Route path="/admin/news" element={<AdminNews />} />
+            <Route path="/admin/edit-news/:id" element={<EditNews />} />
+            <Route path="/admin/add-news" element={<AddNews />} />
+            <Route path="/search/:query" element={<Search />} />
           </Routes>
         </div>
         <Footer />

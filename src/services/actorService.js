@@ -78,29 +78,11 @@ class ActorService {
     }
 
 
-
-
-    //get actor by id
-
-    async getActorById(id) {
-        await this.initialize();
-        const actor = this.actors.find(actor => 
-            actor.id === id
-        );
-        if (actor) {
-            actor.id = id;
-        }
-        return actor;
-    } catch(error) {
-        console.error('Error getting actor by id:', error);
-        throw error;
-    }
-
     async updateActor(id, actor) {
         await this.initialize();
-        const index = this.actors.findIndex(actor => actor.id === id);
+        const index = actorsData.findIndex(actor => actor.id === id);
         if (index !== -1) {
-            this.actors[index] = actor;
+            actorsData[index] = actor;
         }
     }
 
@@ -124,8 +106,32 @@ class ActorService {
             const filteredActors = actorsData.filter(actor =>
                 actor.name.toLowerCase().includes(query.toLowerCase())
             );
-            console.log('Filtered actors:', filteredActors);
             return filteredActors;
+        } catch (error) {
+            console.error('Error searching actors:', error);
+            throw error;
+        }
+    }
+
+    async getAllActors() {
+        // Retournez les données d'acteurs
+        return actorsData; // Assurez-vous que actorsData est un tableau
+    }
+
+    async getActorById(id) {
+        return actorsData.find(actor => actor.id === id);
+    }
+
+
+
+    async searchGlobal(query) {
+        try {
+            // Filtrer les acteurs en fonction du terme de recherche
+            const filteredActors = actorsData.filter(actor =>
+                actor.name.toLowerCase().includes(query.toLowerCase()) ||
+                actor.arabicName.toLowerCase().includes(query.toLowerCase())
+            );
+            return filteredActors
         } catch (error) {
             console.error('Error searching actors:', error);
             throw error;

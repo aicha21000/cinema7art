@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import movieService from '../services/movieService';
-import newsService from '../services/NewsService';
+import newsService from '../services/news-service';
 import MovieCard from '../components/MovieCard';
 import NewsCard from '../components/NewsCard';
 import AdSpace from '../components/AdSpace';
@@ -70,7 +70,6 @@ const [loading, setLoading] = useState(true);
                 });
                 setNewReleases(newReleasesData);
             } catch (error) {
-                console.error('Error fetching home data:', error);
                 setData(prev => ({
                     ...prev,
                     loading: false,

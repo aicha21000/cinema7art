@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar';
+import SearchBar from './search-bar';
 import cinemaLogo from '../assets/cinema-logo.png';
 import '../index.css';
 

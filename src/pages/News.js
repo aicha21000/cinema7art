@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import newsService from '../services/NewsService';
+import newsService from '../services/news-service';
 import NewsCard from '../components/NewsCard';
 
 export default function News() {
-    const [news, setNews] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [page, setPage] = useState(1);
     const [category, setCategory] = useState('');
     const [pagination, setPagination] = useState(null);
+    const [news, setNews] = useState([]);
 
     useEffect(() => {
         const fetchNews = async () => {

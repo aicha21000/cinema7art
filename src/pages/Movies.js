@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import MovieCard from '../components/MovieCard.js';
-import SearchBar from '../components/SearchBar';
-import LoadingSpinner from '../components/LoadingSpinner';
-import ErrorMessage from '../components/ErrorMessage';
 import movieService from '../services/movieService';
 
 function Movies() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [movies, setMovies] = useState([]);
+    const [allMovies, setAllMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [page, setPage] = useState(parseInt(searchParams.get('page')) || 1);
@@ -16,37 +14,45 @@ function Movies() {
     const [genre, setGenre] = useState(searchParams.get('genre') || '');
     const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
 
-   
-
-
-
-
     useEffect(() => {
+        const fetchMovies = async () => {
+            try {
+                setLoading(true);
+                const response = await movieService.getMovies(page, genre);
+                setMovies(response.movies);
+                setAllMovies(response.movies);
+                setTotalPages(response.pagination.totalPages);
+            } catch (error) {
+                setError('فشل في تحميل الأفلام');
+                console.error('Error fetching movies:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         fetchMovies();
-        // Mettre à jour l'URL
+
         const params = new URLSearchParams();
+        if (searchTerm) params.set('search', searchTerm);
         if (page > 1) params.set('page', page);
         if (genre) params.set('genre', genre);
         setSearchParams(params);
     }, [page, genre]);
 
-    const fetchMovies = async () => {
-        try {
-            const response = await movieService.getMovies(page, genre);
-            setMovies(response.movies);
-            setTotalPages(response.pagination.totalPages);
-        } catch (error) {
-            setError('فشل في تحميل الأفلام');
-            console.error('Error fetching movies:', error);
-        } finally {
-            setLoading(false);
+    const handleSearch = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+
+        if (value.trim()) {
+            const filteredMovies = allMovies.filter(movie =>
+                movie.englishTitle.toLowerCase().includes(value.toLowerCase()) ||
+                movie.arabicTitle.includes(value)
+            );
+            setMovies(filteredMovies);
+        } else {
+            setMovies(allMovies);
         }
     };
-
-    const genres = [
-        'Action', 'Adventure', 'Comedy', 'Crime', 'Drama', 'Fantasy',
-        'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Thriller', 'Musical'
-    ];
 
     if (loading) return <div className="text-center py-8">جاري التحميل...</div>;
 
@@ -54,6 +60,13 @@ function Movies() {
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold">الأفلام</h1>
+                <input
+                    type="search"
+                    value={searchTerm}
+                    onChange={handleSearch}
+                    placeholder="ابحث عن الفيلم..."
+                    className="p-2 border rounded-md w-64"
+                />
                 <select
                     value={genre}
                     onChange={(e) => {
@@ -63,9 +76,7 @@ function Movies() {
                     className="p-2 border rounded-md"
                 >
                     <option value="">كل الأنواع</option>
-                    {genres.map(g => (
-                        <option key={g} value={g}>{g}</option>
-                    ))}
+                    {/* Ajoutez vos options de genre ici */}
                 </select>
             </div>
 

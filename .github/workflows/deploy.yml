@@ -8,10 +8,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-22.04
-    permissions:
-      contents: read
-      packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -23,30 +19,17 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          npm ci || npm install
+        run: npm ci || npm install
         
       - name: Build project
         run: npm run build
         env:
           CI: false
 
-      - name: Check build output
-        run: |
-          if [ ! -d "build" ]; then
-            echo "Build failed: build directory not found."
-            exit 1
-          fi
-
       - name: Prepare deployment
         run: |
           mkdir -p deploy
           cp -r build package.json public deploy/
-          # Optionally, include node_modules if not installing on server
-          # cp -r node_modules deploy/
-
-      - name: List files
-        run: ls -la deploy/
 
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -57,8 +40,4 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./deploy/
-          server-dir: /public_html/
-          dangerous-clean-slate: false
-          state-name: .sync-state.json
-          log-level: verbose
-          timeout: 60000 
+          server-dir: /public_html/ 

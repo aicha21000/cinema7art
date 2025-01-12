@@ -28,7 +28,6 @@ class NewsService {
 
             this.news = data;
             this.initialized = true;
-            console.log('Loaded news:', this.news.length, 'items');
         } catch (error) {
             console.error('Failed to load news:', error);
             this.news = [];
@@ -90,17 +89,13 @@ class NewsService {
     }
 
     async searchNews(query) {
-        await this.initialize();
-        const searchTerm = query.toLowerCase();
-        return this.news.filter(news =>
-            news.title.toLowerCase().includes(searchTerm) ||
-            news.content.toLowerCase().includes(searchTerm)
-        );
+        const response = await axios.get(`${this.baseURL}/search`, { params: { query } });
+        return response.data;
     }
 
     async addNews(news) {
         try {
-            const response = await axios.post(`${this.baseURL}/api/news`, news);
+            const response = await axios.post(`${this.baseURL}`, news);
             return response.data;
         } catch (error) {
             console.error('Error adding news:', error);
@@ -115,9 +110,10 @@ class NewsService {
         }
 
         try {
-            const response = await axios.delete(`${this.baseURL}/api/news/${id}`, {
+            const response = await axios.delete(`${this.baseURL}/${id}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
+            console.log('Response from delete:', response.data);
             return response.data;
         } catch (error) {
             console.error('Error deleting news:', error);
@@ -127,7 +123,7 @@ class NewsService {
 
     async updateNews(id, newsData) {
         try {
-            const response = await axios.put(`${this.baseURL}/api/news/${id}`, newsData, {
+            const response = await axios.put(`${this.baseURL}/${id}`, newsData, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -147,7 +143,7 @@ class NewsService {
         }
 
         try {
-            const response = await axios.get(`${this.baseURL}/api/news/unvalidated`, {
+            const response = await axios.get(`${this.baseURL}/unvalidated`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             return response.data;
@@ -160,12 +156,32 @@ class NewsService {
     async validateNews(id) {
         const token = localStorage.getItem('token');
         try {
-            const response = await axios.post(`${this.baseURL}/api/news/validate/${id}`, {}, {
+            const response = await axios.post(`${this.baseURL}/validate/${id}`, {}, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             return response.data;
         } catch (error) {
             console.error('Error validating news:', error);
+            throw error;
+        }
+    }
+
+    async unvalidateNews(id) {
+        try {
+            const response = await axios.put(`${this.baseURL}/unvalidate/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error unvalidating news:', error);
+            throw error;
+        }
+    }
+
+    async searchGlobal(query) {
+        try {
+            const response = await axios.get(`${this.baseURL}/search/${encodeURIComponent(query)}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error searching news:', error);
             throw error;
         }
     }

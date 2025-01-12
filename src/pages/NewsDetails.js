@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import newsService from '../services/NewsService';
+import newsService from '../services/news-service';
 
 function NewsDetails() {
     const { id } = useParams();

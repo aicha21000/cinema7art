@@ -1,19 +1,20 @@
 // MovieCard.js
 
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function MovieCard({ movie }) {
     return (
         <Link to={`/movies/${movie._id}`}>
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow w-40">
                 <div className="relative aspect-[2/3]">
                     <img
                         src={movie.poster}
                         alt={`ملصق فيلم ${movie.arabicTitle}`}
                         loading="lazy"
-                        width="300"
-                        height="450"
+                        width="160"
+                        height="240"
                         className="w-full h-full object-cover absolute inset-0"
                     />
                     {movie.isNewRelease && (
@@ -22,15 +23,15 @@ export default function MovieCard({ movie }) {
                         </span>
                     )}
                 </div>
-                <div className="p-4">
-                    <h3 className="font-bold text-lg mb-1 truncate">
+                <div className="p-2">
+                    <h3 className="font-bold text-sm mb-1 truncate">
                         {movie.englishTitle}
                     </h3>
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-xs">
                         <span className="text-gray-500">
                             {movie.releaseYear}
                         </span>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
                             <span className="text-yellow-500">★</span>
                             <span>{movie.rating}</span>
                         </div>
